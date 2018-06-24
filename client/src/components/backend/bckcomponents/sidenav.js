@@ -10,7 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import { topList, bottomList } from './tileData';
+import StudentView from './sidenavcomps/student/studentview';
 
 const drawerWidth = 240;
 
@@ -75,9 +76,9 @@ class PermanentDrawer extends React.Component {
       >
         <div className={classes.toolbar} />
         <Divider />
-        <List>{mailFolderListItems}</List>
+        <List>{topList}</List>
         <Divider />
-        <List>{otherMailFolderListItems}</List>
+        <List>{bottomList}</List>
       </Drawer>
     );
 
@@ -106,7 +107,7 @@ class PermanentDrawer extends React.Component {
           {before}
           <main className={classes.content}>
             <div className={classes.toolbar} />
-            <Typography></Typography>
+            {/* <StudentView/> */}
           </main>
           {after}
         </div>

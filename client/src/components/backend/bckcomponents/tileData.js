@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SchoolIcon from '@material-ui/icons/School';
 
-export const mailFolderListItems = (
+export const topList = (
   <div>
     <ListItem button>
       <ListItemIcon>
@@ -41,7 +41,7 @@ export const mailFolderListItems = (
   </div>
 );
 
-export const otherMailFolderListItems = (
+export const bottomList = (
   <div>
     <ListItem button>
       <ListItemIcon>
