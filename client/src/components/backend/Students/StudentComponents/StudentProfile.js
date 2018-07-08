@@ -15,7 +15,7 @@ function StudentProfile(props) {
     console.log(props)
   
     const { classes } = props;
-
+    const {sInfo} = props
     return (
         <div>
             <Card raised>
@@ -28,7 +28,7 @@ Student Name
                 </ListItem>
                 <ListItem>
                 <Typography variant="body2">
-                {props.studentname}
+                {sInfo.data.fName + " " + sInfo.data.lName  }
                 </Typography>
                 </ListItem>
                 <Divider/>
@@ -39,7 +39,7 @@ Student Number
                 </ListItem>
                 <ListItem>
                 <Typography variant="body2">
-                {props.studentnumber}
+                {sInfo.data.studentNumber}
                 </Typography>
                 </ListItem>
                 <Divider/>
@@ -50,7 +50,7 @@ Address
                 </ListItem>
                 <ListItem>
                 <Typography variant="body2">
-                {props.studentaddress}
+                {sInfo.data.address.address1 + ", " + sInfo.data.address.address2 + ", " + sInfo.data.address.city + ", " + sInfo.data.address.state + ", " + sInfo.data.address.postalCode + ", " + sInfo.data.address.country}
                 </Typography>
                 </ListItem>
                 <Divider/>

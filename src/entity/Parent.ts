@@ -22,7 +22,4 @@ export class Parent {
     @ManyToMany(type=>Student, s=>s.parents)
     students:Student[];
 
-    @OneToOne(type => Login)
-    @JoinColumn()
-    login: Login
 }

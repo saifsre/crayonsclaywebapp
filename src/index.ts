@@ -9,6 +9,7 @@ import { Student } from "./entity/Student";
 import { GradeSection } from "./entity/GradeSection";
 import { Teacher } from "./entity/Teacher";
 import { Grade } from "./entity/Grade";
+import { Parent } from "./entity/Parent";
 createConnection().then(async connection => {
 
     // create express app    
@@ -24,6 +25,7 @@ createConnection().then(async connection => {
     address1.city = "Saharanpur";
     address1.country = "India"
     address1.state="UP";
+    address1.postalCode = "247001"
     await connection.manager.save(address1);
 
     let teacher = new Teacher();
@@ -44,11 +46,16 @@ createConnection().then(async connection => {
      grade.sections = arr
 
      
-     gradeSection.grade = grade
+    gradeSection.grade = grade
 
     await connection.manager.save(teacher);
     await connection.manager.save(grade);
     await connection.manager.save(gradeSection);
+
+    let parent = new Parent()
+    parent.fName = "Nahid";
+    parent.lName = "Pervin";
+    parent.maritalStatus = "Married";
 
     let student = new Student();
     student.fName = "Saif";
@@ -56,9 +63,10 @@ createConnection().then(async connection => {
     student.address = address1;
     student.studentNumber = 43768150;
     student.currGrade = gradeSection;
-    
-
+    parent.students = [student];
+    student.parents = [parent];
     await connection.manager.save(student);
+    await connection.manager.save(parent);
 
     app.use(bodyParser.json());
 

@@ -59,7 +59,7 @@ class StudentView extends React.Component{
     }
    componentDidMount(){ 
     axios.get(`http://localhost:4000/api/students/${this.paramId}`).then(response=>{
-      console.log(response)
+      console.log(response.data)
       this.setState(
         {
           studentInfo: response.data,
@@ -69,7 +69,7 @@ class StudentView extends React.Component{
                 link: `/student/${this.paramId}/dashboard`
             },
             {
-                component: <StudentProfile data={response}/>,
+                component: <StudentProfile sInfo={response}/>,
                 link: `/student/${this.paramId}/profile`
             },
             {
@@ -78,7 +78,9 @@ class StudentView extends React.Component{
             }
           ]
         })
-      }).catch(function(error){
+
+      }
+    ).catch(function(error){
           console.log(error)
       })
     }
