@@ -11,14 +11,14 @@ import { Grade } from "../entity/Grade";
 export class StudentController {
 
     private studentRepository = getRepository(Student);
-    private addressRepository = getRepository(Address);
-
+    private gradeSectionRepo = getRepository(GradeSection);
     @Get("/students/:id")
     async fetchStudentInfo(@Req() request: any, @Res() response: any){
 
-        const studentInfo = await this.studentRepository.createQueryBuilder("student").leftJoinAndSelect("student.address", "address").leftJoinAndSelect("student.currGrade","currGrade").leftJoinAndSelect("student.parents","parents").where("student.studentNumber = :id",{id: request.params.id}).getOne();
-        
-        if(!studentInfo){
+        var studentInfo = await this.studentRepository.createQueryBuilder("student").leftJoinAndSelect("student.address", "address").leftJoinAndSelect("student.currGrade","currGrade").leftJoinAndSelect("student.parents","parents").where("student.studentNumber = :id",{id: request.params.id}).getOne();
+        const foreignInfo = await this.gradeSectionRepo.createQueryBuilder("gradeSection").leftJoinAndSelect("gradeSection.classTeacher","classTeacher").leftJoinAndSelect("gradeSection.grade", "grade").where("gradeSection.Id = :id", {id: studentInfo.currGrade.Id}).getOne();
+        studentInfo.currGrade = foreignInfo;
+        if(!studentInfo||!foreignInfo){
             throw new HttpError(404,"The Request Failed");
         }
         else {
@@ -28,7 +28,10 @@ export class StudentController {
     
     @Get("/students")
     async all(request: Request, response: Response, next: NextFunction) {
-        const result = await this.studentRepository.createQueryBuilder("student").leftJoinAndSelect("student.address", "address").leftJoinAndSelect("student.currGrade","currGrade").leftJoinAndSelect("student.parents","parents").getManyAndCount();
+        const result = await this.studentRepository.createQueryBuilder("student").leftJoinAndSelect("student.address", "address").leftJoinAndSelect("student.currGrade","currGrade").leftJoinAndSelect("student.parents","parents").getMany();
+        for(let i=0; i < result.length;i++){
+            result[i].currGrade = await this.gradeSectionRepo.createQueryBuilder("gradeSection").leftJoinAndSelect("gradeSection.classTeacher","classTeacher").leftJoinAndSelect("gradeSection.grade", "grade").where("gradeSection.Id = :id", {id: result[i].currGrade.Id}).getOne()
+        }
         if(!result){
             throw new HttpError(404,"The Request Failed");
         }

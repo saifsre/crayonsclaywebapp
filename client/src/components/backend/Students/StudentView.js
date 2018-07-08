@@ -57,9 +57,10 @@ class StudentView extends React.Component{
    components = []
     studentInfo() {
     }
+
    componentDidMount(){ 
     axios.get(`http://localhost:4000/api/students/${this.paramId}`).then(response=>{
-      console.log(response.data)
+      console.log(response.data);
       this.setState(
         {
           studentInfo: response.data,

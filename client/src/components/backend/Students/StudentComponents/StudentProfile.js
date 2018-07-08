@@ -7,8 +7,20 @@ import { Grid, CardContent, Typography, Divider, List, ListItem } from '@materia
 import Card from '@material-ui/core/Card';
 
 const styles = theme => ({
-    
+    title: {
+        marginBottom: 12,
+        fontSize: 20,
+      },
 });
+function renderParents(parents) {
+
+
+    {
+        return(
+            parents.map((parent,i)=><Typography key = {i++} variant="body2">{ i + "- " +parent.fName +" " + parent.lName}</Typography>)
+        ) 
+    }
+}
 
 function StudentProfile(props) {
 
@@ -20,6 +32,9 @@ function StudentProfile(props) {
         <div>
             <Card raised>
             <CardContent>
+            <Typography className={classes.title} color="textSecondary">
+            Student Information
+          </Typography>
                 <List>
                 <ListItem>
                 <Typography variant="caption" align="left">
@@ -61,7 +76,7 @@ Date of Bith
                 </ListItem>
                 <ListItem>
                 <Typography variant="body2">
-                {props.studentdob}
+                {sInfo.data.dob}
                 </Typography>
                 </ListItem>
                 <Divider/>
@@ -72,13 +87,39 @@ Current Grade
                 </ListItem>
                 <ListItem>
                 <Typography variant="body2">
-                {props.currgrade}
+                {sInfo.data.currGrade.grade.name + "- " + sInfo.data.currGrade.grade.description}
+                </Typography>
+                </ListItem>
+                <Divider/>
+                <ListItem>
+                <Typography variant="caption" align="left">
+Class Teacher
+                </Typography>
+                </ListItem>
+                <ListItem>
+                <Typography variant="body2">
+                {sInfo.data.currGrade.classTeacher.fName + " " + sInfo.data.currGrade.classTeacher.lName}
                 </Typography>
                 </ListItem>
                 <Divider/>
                 </List>
             </CardContent>
-            
+            <CardContent>
+            <Typography className={classes.title} color="textSecondary">
+            Parents Information
+          </Typography>
+          <ListItem>
+                <Typography variant="caption" align="left">
+Parent(s) Name(s)
+                </Typography>
+                </ListItem>
+                <ListItem>
+                <Typography variant="body2">
+                {renderParents(sInfo.data.parents)}
+                </Typography>
+                </ListItem>
+                <Divider/>
+            </CardContent>
             </Card>   
         </div>
     );

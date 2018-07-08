@@ -35,8 +35,8 @@ createConnection().then(async connection => {
     teacher.lName = "Khan";
     
      let grade = new Grade();
-     grade.description = "Class 2";
-     grade.name = "6";
+     grade.description = "C";
+     grade.name = "6th";
     
      let gradeSection = new GradeSection();
      gradeSection.classTeacher = teacher;
@@ -65,6 +65,8 @@ createConnection().then(async connection => {
     student.currGrade = gradeSection;
     parent.students = [student];
     student.parents = [parent];
+    student.dob = new Date("August 9, 1997");
+
     await connection.manager.save(student);
     await connection.manager.save(parent);
 
