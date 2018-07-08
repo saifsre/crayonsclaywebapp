@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Admin from './components/backend/admin';
+import Admin from './components/backend/Admin/admin';
+import {BrowserRouter as Router}from 'react-router-dom'; 
+import routes from '../src/components/backend/Students/StudentRoutes'
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <Router>
+      {/* <div className="App">
       <Admin />
-      </div>
+      </div> */}
+      {routes}
+      </Router>
     );
   }
 }

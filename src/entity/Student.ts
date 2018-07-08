@@ -19,9 +19,9 @@ export class Student{
     @Column()
     dob:  Date;
 
-    @OneToOne(type=>Address)
+    @OneToOne(type=>Address, address => address.id)
     @JoinColumn()
-    address: string;
+    address: Address;
 
     @ManyToOne(type=>GradeSection, gs=>gs.students)
     currGrade: GradeSection;

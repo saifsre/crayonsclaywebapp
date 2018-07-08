@@ -8,8 +8,8 @@ import { Grade } from "./Grade";
 export class GradeSection {
 
 
-    @PrimaryColumn()
-    section_Id: number;
+    @PrimaryGeneratedColumn()
+    Id: number;
 
     @OneToMany(type=>Student, s=>s.currGrade)
     students: Student[];

@@ -10,9 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { topList, bottomList } from './tileData';
-import StudentView from './sidenavcomps/student/studentview';
-
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -51,7 +49,20 @@ const styles = theme => ({
   },
 });
 
-class PermanentDrawer extends React.Component {
+
+const renderComponents=(comps,link)=>{
+
+  for(var i=0;i<comps.length;i++){
+    if(comps[i].link===link){
+      return(<div>{comps[i].component} </div>)
+    }
+  }
+}
+
+class SideNav extends React.Component {
+  constructor(props){
+    super(props);
+  }
   state = {
     anchor: 'left',
   };
@@ -76,9 +87,9 @@ class PermanentDrawer extends React.Component {
       >
         <div className={classes.toolbar} />
         <Divider />
-        <List>{topList}</List>
+        <List>{this.props.topList}</List>
         <Divider />
-        <List>{bottomList}</List>
+        <List>{this.props.bottomList}</List>
       </Drawer>
     );
 
@@ -107,7 +118,7 @@ class PermanentDrawer extends React.Component {
           {before}
           <main className={classes.content}>
             <div className={classes.toolbar} />
-            {/* <StudentView/> */}
+           { renderComponents(this.props.comps, this.props.url)}
           </main>
           {after}
         </div>
@@ -116,8 +127,8 @@ class PermanentDrawer extends React.Component {
   }
 }
 
-PermanentDrawer.propTypes = {
+SideNav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PermanentDrawer);
+export default withStyles(styles)(SideNav);
