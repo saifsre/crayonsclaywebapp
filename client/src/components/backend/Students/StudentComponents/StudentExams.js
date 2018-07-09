@@ -24,15 +24,16 @@ const PopulateTableData = ({items})=>{
 }
 
 function StudentExams(props) {
+    console.log(props.eInfo);
     const {classes} = props;
-    const {columns} = props;
+    const {eInfo} = props;
     const {tableData} = props;
     return(
         <div>
             <Paper>
                 <Table>
                     <TableHead>
-                       {/* <GenerateTableCells items={columns}/>      */}
+                       <GenerateTableCells items={eInfo}/>     
                     </TableHead>   
                     <TableBody>
                         {/* <PopulateTableData items={tableData}/> */}

@@ -10,6 +10,9 @@ import { GradeSection } from "./entity/GradeSection";
 import { Teacher } from "./entity/Teacher";
 import { Grade } from "./entity/Grade";
 import { Parent } from "./entity/Parent";
+import { Course } from "./entity/Course";
+import { Exam } from "./entity/Exam";
+import { ExamResult } from "./entity/ExamResult";
 createConnection().then(async connection => {
 
     // create express app    
@@ -56,6 +59,7 @@ createConnection().then(async connection => {
     parent.fName = "Nahid";
     parent.lName = "Pervin";
     parent.maritalStatus = "Married";
+    parent.dob = new Date("December 20, 1967");
 
     let student = new Student();
     student.fName = "Saif";
@@ -67,8 +71,66 @@ createConnection().then(async connection => {
     student.parents = [parent];
     student.dob = new Date("August 9, 1997");
 
+    let course1 = new Course()
+    course1.name = "English";
+    course1.desc = "Elementary Literature";
+
+    let course2 = new Course();
+    course2.name = "Maths";
+    course2.desc = "Elementary Level Maths";
+
+    let course3 = new Course();
+    course3.name = "Science";
+    course3.desc = "Phys+Chem+Bio";
+
+    let exam1 = new Exam();
+
+    exam1.examType = "Half Yearly";
+    exam1.examLocation = "Science Building";
+    exam1.examDateTime = new Date(2018,7,3,15,30);
+    exam1.course = course1;
+
+    let exam2 = new Exam();
+
+    exam2.examType = "Half Yearly";
+    exam2.examLocation = "Math Building";
+    exam2.examDateTime = new Date(2018,7,4,15,30);
+    exam2.course = course2;
+    let exam3 = new Exam();
+
+    exam3.examType = "Half Yearly";
+    exam3.examLocation = "Computer Science Room";
+    exam3.examDateTime = new Date(2018,7,5,15,30);
+    exam3.course = course3;
+
+    await connection.manager.save(course1);
+    await connection.manager.save(course2);
+    await connection.manager.save(course3);
+    await connection.manager.save(exam1);
+    await connection.manager.save(exam2);
+    await connection.manager.save(exam3);
     await connection.manager.save(student);
     await connection.manager.save(parent);
+
+    let examResult1 = new ExamResult()
+    examResult1.exam = exam1;
+    examResult1.student = student;
+    examResult1.marks = "73";
+
+    let examResult2 = new ExamResult();
+    examResult2.exam = exam2;
+    examResult2.student = student;
+    examResult2.marks = "83";
+
+    let examResult3 = new ExamResult()
+    examResult3.exam = exam3;
+    examResult3.marks = "90";
+    examResult3.student = student;
+
+    await connection.manager.save(examResult1);
+    await connection.manager.save(examResult2);
+    await connection.manager.save(examResult3);
+
 
     app.use(bodyParser.json());
 
@@ -76,6 +138,6 @@ createConnection().then(async connection => {
    
     // start express server
     app.listen(4000);
-    console.log("Express server has started on port 3000. Open http://localhost:5000/students to see results");
+    console.log("Express server has started on port 4000. Open http://localhost:5000/students to see results");
 
 }).catch(error => console.log(error));

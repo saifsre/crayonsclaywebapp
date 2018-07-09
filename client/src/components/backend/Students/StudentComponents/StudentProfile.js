@@ -17,7 +17,25 @@ function renderParents(parents) {
 
     {
         return(
-            parents.map((parent,i)=><Typography key = {i++} variant="body2">{ i + "- " +parent.fName +" " + parent.lName}</Typography>)
+            parents.map((parent,i)=><Typography key = {i++} variant="body2">{parent.fName +" " + parent.lName}</Typography>)
+        ) 
+    }
+}
+function renderMaritalStatus(parents) {
+
+
+    {
+        return(
+            parents.map((parent,i)=><Typography key = {i++} variant="body2">{parent.maritalStatus}</Typography>)
+        ) 
+    }
+}
+function renderParentsDob(parents) {
+
+
+    {
+        return(
+            parents.map((parent,i)=><Typography key = {i++} variant="body2">{parent.dob}</Typography>)
         ) 
     }
 }
@@ -117,6 +135,28 @@ Parent(s) Name(s)
                 <Typography variant="body2">
                 {renderParents(sInfo.data.parents)}
                 </Typography>
+                </ListItem>
+                <Divider/>
+                <ListItem>
+                <Typography variant="caption" align="left">
+Marital Status
+                </Typography>
+                </ListItem>
+                <ListItem>
+                <Typography variant="body2">
+                {renderMaritalStatus(sInfo.data.parents)}  
+              </Typography>
+                </ListItem>
+                <Divider/>
+                <ListItem>
+                <Typography variant="caption" align="left">
+Date of Birth
+                </Typography>
+                </ListItem>
+                <ListItem>
+                <Typography variant="body2">
+                {renderParentsDob(sInfo.data.parents)}  
+              </Typography>
                 </ListItem>
                 <Divider/>
             </CardContent>

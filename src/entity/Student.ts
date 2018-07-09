@@ -1,8 +1,9 @@
-import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Address } from "./Address";
 import { GradeSection } from "./GradeSection";
 import { Parent } from "./Parent";
 import { Login } from "./Login";
+import { ExamResult } from "./ExamResult";
 
 @Entity()
 export class Student{
@@ -29,7 +30,9 @@ export class Student{
     @ManyToMany(type=>Parent, p=>p.students)
     @JoinTable({name:"student_parent"})
     parents: Parent[]
-
+    
+    @OneToMany(type=>ExamResult, eR=>eR.student) 
+    examsResults: ExamResult[];
 
     @OneToOne(type=>Login)
     @JoinColumn()

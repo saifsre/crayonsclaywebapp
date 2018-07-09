@@ -61,6 +61,12 @@ class StudentView extends React.Component{
    componentDidMount(){ 
     axios.get(`http://localhost:4000/api/students/${this.paramId}`).then(response=>{
       console.log(response.data);
+      var courses =  [];
+      var examsResults = response.data.examsResults;
+
+      for(let i=0; i <examsResults.length; i++) {
+        courses.push(examsResults[i].exam.course.name)
+      }
       this.setState(
         {
           studentInfo: response.data,
@@ -74,7 +80,7 @@ class StudentView extends React.Component{
                 link: `/student/${this.paramId}/profile`
             },
             {
-                component: <StudentExams/>,
+                component: <StudentExams eInfo={courses}/>,
                 link: `/student/${this.paramId}/exams`
             }
           ]

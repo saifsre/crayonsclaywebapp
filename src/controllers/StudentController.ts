@@ -6,18 +6,27 @@ import { Address } from "../entity/Address";
 import { GradeSection } from "../entity/GradeSection";
 import { Teacher } from "../entity/Teacher";
 import { Grade } from "../entity/Grade";
+import { ExamResult } from "../entity/ExamResult";
+import { Exam } from "../entity/Exam";
 
 @JsonController()
 export class StudentController {
 
     private studentRepository = getRepository(Student);
     private gradeSectionRepo = getRepository(GradeSection);
+    private examResultRepo = getRepository(ExamResult);
+    private examRepo = getRepository(Exam);
     @Get("/students/:id")
     async fetchStudentInfo(@Req() request: any, @Res() response: any){
 
         var studentInfo = await this.studentRepository.createQueryBuilder("student").leftJoinAndSelect("student.address", "address").leftJoinAndSelect("student.currGrade","currGrade").leftJoinAndSelect("student.parents","parents").where("student.studentNumber = :id",{id: request.params.id}).getOne();
         const foreignInfo = await this.gradeSectionRepo.createQueryBuilder("gradeSection").leftJoinAndSelect("gradeSection.classTeacher","classTeacher").leftJoinAndSelect("gradeSection.grade", "grade").where("gradeSection.Id = :id", {id: studentInfo.currGrade.Id}).getOne();
+        const examResult = await this.examResultRepo.createQueryBuilder("examResult").leftJoinAndSelect("examResult.exam", "exam").where("examResult.student = :id", {id:studentInfo.studentNumber}).getMany();
+        for(var i=0;i<examResult.length; i++) {
+         examResult[i].exam = await this.examRepo.createQueryBuilder("exam").leftJoinAndSelect("exam.course","course").where("exam.id =:id", {id: examResult[i].exam.id}).getOne();
+        }
         studentInfo.currGrade = foreignInfo;
+        studentInfo.examsResults = examResult;
         if(!studentInfo||!foreignInfo){
             throw new HttpError(404,"The Request Failed");
         }
