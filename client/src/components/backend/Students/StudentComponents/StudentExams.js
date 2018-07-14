@@ -7,6 +7,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 const styles = {
+    root : {
+        height: '100%',
+        width: '100%'
+    }
 
 }
 const GenerateTableCells = ({items})=>{
@@ -24,19 +28,31 @@ const PopulateTableData = ({items})=>{
 }
 
 function StudentExams(props) {
-    console.log(props.eInfo);
     const {classes} = props;
-    const {eInfo} = props;
+    const {columns} = props;
     const {tableData} = props;
+    var data= [];
+    tableData.forEach(arr => {
+        var sarr = []
+        sarr.push(arr.Id);
+        sarr.push(arr.exam.examType);
+        sarr.push(arr.exam.course.name);
+        sarr.push(arr.exam.examDateTime);
+        sarr.push(arr.exam.examLocation); 
+        sarr.push(arr.marks); 
+        data.push(sarr); 
+    }); 
     return(
-        <div>
+        <div className={classes.root}>
             <Paper>
                 <Table>
                     <TableHead>
-                       <GenerateTableCells items={eInfo}/>     
+                        <tr>
+                       <GenerateTableCells items={columns}/>  
+                       </tr>   
                     </TableHead>   
                     <TableBody>
-                        {/* <PopulateTableData items={tableData}/> */}
+                        <PopulateTableData items={data}/>
                     </TableBody> 
                 </Table>    
             </Paper>    

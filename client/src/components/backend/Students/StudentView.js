@@ -60,13 +60,10 @@ class StudentView extends React.Component{
 
    componentDidMount(){ 
     axios.get(`http://localhost:4000/api/students/${this.paramId}`).then(response=>{
-      console.log(response.data);
-      var courses =  [];
-      var examsResults = response.data.examsResults;
+      var columns = ["Index","Exam Type","Subject", "Exam Date", "Exam Location", "Marks Obtained"]
+      var data = [];
 
-      for(let i=0; i <examsResults.length; i++) {
-        courses.push(examsResults[i].exam.course.name)
-      }
+      var examsResults = response.data.examsResults;
       this.setState(
         {
           studentInfo: response.data,
@@ -80,7 +77,7 @@ class StudentView extends React.Component{
                 link: `/student/${this.paramId}/profile`
             },
             {
-                component: <StudentExams eInfo={courses}/>,
+                component: <StudentExams columns={columns} tableData = {examsResults}/>,
                 link: `/student/${this.paramId}/exams`
             }
           ]

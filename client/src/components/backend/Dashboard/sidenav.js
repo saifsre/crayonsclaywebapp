@@ -17,7 +17,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   appFrame: {
     height: 430,
@@ -26,7 +26,8 @@ const styles = theme => ({
     position: 'relative',
     display: 'flex',
     width: '100%',
-    height: '100%'
+    height: '100%',
+    overflow: 'auto'
   },
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
