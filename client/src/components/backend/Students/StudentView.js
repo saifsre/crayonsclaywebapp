@@ -43,7 +43,7 @@ const TopList = (props)=>(
   
   const BottomList = (props)=>(
     <div>
-      <ListItem button component="a" href={`/student/${props.studentid}/exams`}> 
+      <ListItem button component="a" href={`/student/${props.studentid}/settings`}> 
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>
@@ -69,7 +69,7 @@ class StudentView extends React.Component{
           studentInfo: response.data,
           components: [
             {
-                component: <StudentDashboard/>,
+                component: <StudentDashboard sInfo={response.data}/>,
                 link: `/student/${this.paramId}/dashboard`
             },
             {

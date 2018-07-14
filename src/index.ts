@@ -70,6 +70,7 @@ createConnection().then(async connection => {
     parent.students = [student];
     student.parents = [parent];
     student.dob = new Date("August 9, 1997");
+    student.specialMessage = "Your fees is due on July 30. Please pay your fees to avoid late charges"
 
     let course1 = new Course()
     course1.name = "English";

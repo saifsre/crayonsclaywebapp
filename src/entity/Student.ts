@@ -37,4 +37,7 @@ export class Student{
     @OneToOne(type=>Login)
     @JoinColumn()
     login: Login
+
+    @Column()
+    specialMessage:  string
 }
