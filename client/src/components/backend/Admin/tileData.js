@@ -12,27 +12,27 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SchoolIcon from '@material-ui/icons/School';
 
-export const topList = (
+export const TopList=(props)=>(
   <div>
-    <ListItem button>
+    <ListItem component="a" button href={`/admin`}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button>
+    <ListItem component="a" button href={`/admin/students`}>
       <ListItemIcon>
         <SchoolIcon />
       </ListItemIcon>
       <ListItemText primary="Students" />
     </ListItem>
-    <ListItem button>
+    <ListItem component="a" button href={`/admin/teachers`}>
       <ListItemIcon>
         <AssistantIcon />
       </ListItemIcon>
       <ListItemText primary="Teachers" />
     </ListItem>
-    <ListItem button>
+    <ListItem component="a" button href={`/admin/exams`}>
       <ListItemIcon>
         <NoteIcon />
       </ListItemIcon>
@@ -41,15 +41,15 @@ export const topList = (
   </div>
 );
 
-export const bottomList = (
+export const BottomList = (props) => (
   <div>
-    <ListItem button>
+    <ListItem component="a" button href={`/admin/paystubs`}>
       <ListItemIcon>
         <MoneyOffIcon />
       </ListItemIcon>
       <ListItemText primary="Pay Stubs" />
     </ListItem>
-    <ListItem button>
+    <ListItem component="a" button href={`/admin/settings`}>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
