@@ -8,12 +8,15 @@ import AdminRoute from './components/backend/Admin/AdminRoute';
 class App extends Component {
   render() {
     return (
-      <Router>
+   <Router>
       {/* <div className="App">
       <Admin />
       </div> */} 
+      <div>
       {AdminRoute}
+      </div>
       </Router>
+      
     );
   }
 }

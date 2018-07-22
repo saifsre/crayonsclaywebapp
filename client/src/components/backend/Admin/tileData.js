@@ -14,7 +14,7 @@ import SchoolIcon from '@material-ui/icons/School';
 
 export const TopList=(props)=>(
   <div>
-    <ListItem component="a" button href={`/admin`}>
+    <ListItem component="a" button href={`/admin/dashboard`}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
